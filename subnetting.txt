@@ -1,0 +1,80 @@
+Subnetting 
+-------------
+Create four subnets from the following IP 198.67.23.0
+
+Method of calculating number of subnets
+NB: No of subnets = 2^n
+
+Steps taken when subnetting
+-----------------------------------------
+STEP 1: IP breakdown
+Class		SubnetMask		CIRDRange
+C		255.255.255.0		198.67.23.0/24
+
+STEP 2: Convert the IP from Decimal to Binary
+	198.67.23.0 => 11000110.01000011.00010111.00000000
+
+>	198	70	6	6	6	6	2	0
+	128	64	32	16	8	4	2	1
+	1	1	0	0	0	1	1	0
+
+>       67	67      3       3       3       3       3       1
+        128     64      32      16      8       4       2       1
+        0       1       0       0       0       0       1       1
+
+>       23	23      23      23      7       7       3       1
+        128     64      32      16      8       4       2       1
+        0       0       0       1       0       1       1       1
+
+>       198     70      6       6       6       6       2       0
+        128     64      32      16      8       4       2       1
+        1       1       0       0       0       1       1       0
+SUbnet 255.255.255.0 to binary : 11111111.11111111.11111111.00000000
+
+STEP 3: Calculate the number of host bits that can be given to the network portion
+	as required by the subnets
+	No. of Subnets = 2^n
+	n = 2 (from 2^2=4)
+
+	11000110.01000011.00010111.00000000
+	we add two bits (1) to the last binary
+	11000110.01000011.00010111.11000000
+	New CIDR RAnge for IP = 198.67.23.0/26
+	New SUBNET mask binary = 11111111.11111111.11111111.11000000
+	New Subnet mask decimal = 255.255.255.196
+
+STEP 4 : Identify the four subnet ranges
+	New Subnet mask in binary = 11111111.11111111.11111111.11000000
+	NB : the last part of the IP address is the host portion
+	number of useable hosts = 2^n - 2
+	number of total hosts	= 2^n
+				= 2^6 = 64
+
+	198.67.23.0 to 4 subnets
+	1st subnet range = 198.67.23.0 to 198.67.23.63 (+63)
+	2nd subnet range = 198.67.23.64 to 198.67.23.127 (+63)
+	3rd subnet range = 198.67.23.128 to 198.67.23.191 (+63)
+	4th subnet range = 198.67.23.192 to 198.67.23.255
+
+	198.67.23.0 to 5 subnets
+	5 = 2^n
+	128	64	32	16	8	4	2	1
+	^7	^6	^5	^4	^3	^2	^1	^0
+	in this case we take higher power , that is, ^3 because 5
+	is not a power of 2
+	therefore, 8 = 2^3
+	
+	Number of host bits required(n)to be added to the network=3
+	New subnet mask in binary = 11111111.11111111.11111111.11100000
+								(the 3 power
+								adds the 3 1s)
+	Number of total hosts = 2^n
+				= 2^5 = 3
+	We will have a total of 32 hosts per subnet - includes the network 
+	and the 
+
+	1st subnet range = 198.67.23.0 to 198.67.23.31
+	2nd subnet range = 198.67.23.32 to 198.67.23.63
+	3rd subnet range = 198.67.23.64 to 198.67.23.95
+	4th subnet range = 198.67.23.96 to 198.67.23.127
+	5th subnet range = 198.67.23.128 to 198.67.23.159
